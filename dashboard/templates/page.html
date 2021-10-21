@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html style="font-size: 16px;">
+  <head>
+    <title>Home</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <link href="/static/css/nicepage.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+    <script type="text/javascript" src="/static/js/check.js"></script>
+
+<!-- 
+    # visualiser microservice
+    """
+    1. Collector:4321
+    2. Database:5432
+    3. Visualiser:8080
+    """
+    # Recommender microservice
+    """
+    4. Collector:2111
+    5. Database:2311:5432
+    6. Recommender:2211
+    7. Webpage:2411
+    """
+    # Tag prediction microservice
+    """
+    8. Preprocessor:3111
+    9. Database:3411:5432
+    10. Tag Predictor:3211
+    11. Webpage:3311
+    """
+
+ -->
+  </head>
+  <body class="u-body"  onload="onload_check()"><header class="u-clearfix u-header u-header" id="sec-eba0"><div class="u-clearfix u-sheet u-sheet-1">
+        <h1 class="u-align-center u-text u-text-default u-text-1">Microservice Dashboard</h1>
+      </div></header>
+    <section class="u-clearfix u-grey-10 u-section-1" id="sec-8d2e">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <div class="u-layout-grid u-list u-list-1">
+          <div class="u-repeater u-repeater-1">
+            <div class="u-border-2 u-border-grey-75 u-container-style u-custom-item u-grey-50 u-list-item u-repeater-item u-list-item-1">
+              <div class="u-container-layout u-similar-container u-container-layout-1">
+                <h3 class="u-text u-text-default u-text-1">Visualiser</h3>
+              </div>
+            </div>
+            <div class="u-border-2 u-border-grey-75 u-container-style u-custom-item u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-container-layout-2">
+                <h3 class="u-text u-text-default u-text-2">Collector</h3>
+                <img class="u-image u-image-circle u-preserve-proportions u-image-4" id="1-img"  src="static/images/ok.png" alt="" data-image-width="48" data-image-height="48">
+                <input type="button" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-6 u-btn-3" id="1" value="Check" onclick="check_service(this.id)"/>
+              </div>
+            </div>
+            <div class="u-border-2 u-border-grey-75 u-container-style u-custom-item u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-container-layout-2">
+                <h3 class="u-text u-text-default u-text-2">Database</h3>
+                <img class="u-image u-image-circle u-preserve-proportions u-image-4" id="2-img"  src="static/images/ok.png" alt="" data-image-width="48" data-image-height="48">
+                <input type="button" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-6 u-btn-3" id="2" value="Check" onclick="check_service(this.id)"/>
+              </div>
+            </div>
+            <div class="u-border-2 u-border-grey-75 u-container-style u-custom-item u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-container-layout-2">
+                <h3 class="u-text u-text-default u-text-2">Webpage</h3>
+                <img class="u-image u-image-circle u-preserve-proportions u-image-4" id="3-img"  src="static/images/ok.png" alt="" data-image-width="48" data-image-height="48">
+                <input type="button" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-6 u-btn-3" id="3" value="Check" onclick="check_service(this.id)"/>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="u-list u-list-2">
+          <div class="u-repeater u-repeater-2">
+            <div class="u-border-2 u-border-grey-75 u-container-style u-custom-item u-grey-50 u-list-item u-repeater-item u-list-item-6">
+              <div class="u-container-layout u-similar-container u-container-layout-6">
+                <h3 class="u-text u-text-default u-text-6">Recommender</h3>
+              </div>
+            </div>
+            <div class="u-border-2 u-border-grey-75 u-container-style u-custom-item u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-container-layout-2">
+                <h3 class="u-text u-text-default u-text-2">Collector</h3>
+                <img class="u-image u-image-circle u-preserve-proportions u-image-4" id="4-img"  src="static/images/ok.png" alt="" data-image-width="48" data-image-height="48">
+                <input type="button" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-6 u-btn-3" id="4" value="Check" onclick="check_service(this.id)"/>
+              </div>
+            </div>
+            <div class="u-border-2 u-border-grey-75 u-container-style u-custom-item u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-container-layout-2">
+                <h3 class="u-text u-text-default u-text-2">Database</h3>
+                <img class="u-image u-image-circle u-preserve-proportions u-image-4" id="5-img"  src="static/images/ok.png" alt="" data-image-width="48" data-image-height="48">
+                <input type="button" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-6 u-btn-3" id="5" value="Check" onclick="check_service(this.id)"/>
+              </div>
+            </div>
+            <div class="u-border-2 u-border-grey-75 u-container-style u-custom-item u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-container-layout-2">
+                <h3 class="u-text u-text-default u-text-2">Recommender</h3>
+                <img class="u-image u-image-circle u-preserve-proportions u-image-4" id="6-img"  src="static/images/ok.png" alt="" data-image-width="48" data-image-height="48">
+                <input type="button" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-6 u-btn-3" id="6" value="Check" onclick="check_service(this.id)"/>
+              </div>
+            </div>
+            <div class="u-border-2 u-border-grey-75 u-container-style u-custom-item u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-container-layout-2">
+                <h3 class="u-text u-text-default u-text-2">Webpage</h3>
+                <img class="u-image u-image-circle u-preserve-proportions u-image-4" id="7-img"  src="static/images/ok.png" alt="" data-image-width="48" data-image-height="48">
+                <input type="button" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-6 u-btn-3" id="7" value="Check" onclick="check_service(this.id)"/>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="u-align-center u-list u-list-3">
+          <div class="u-repeater u-repeater-3">
+            <div class="u-border-2 u-border-grey-75 u-container-style u-custom-item u-grey-50 u-list-item u-radius-2 u-repeater-item u-shape-round u-list-item-11">
+              <div class="u-container-layout u-similar-container u-container-layout-11">
+                <h3 class="u-text u-text-default u-text-11">Tag Prediction</h3>
+              </div>
+            </div>
+            <div class="u-border-2 u-border-grey-75 u-container-style u-custom-item u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-container-layout-2">
+                <h3 class="u-text u-text-default u-text-2">Preprocessor</h3>
+                <img class="u-image u-image-circle u-preserve-proportions u-image-4" id="8-img"  src="static/images/ok.png" alt="" data-image-width="48" data-image-height="48">
+                <input type="button" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-6 u-btn-3" id="8" value="Check" onclick="check_service(this.id)"/>
+              </div>
+            </div>
+            <div class="u-border-2 u-border-grey-75 u-container-style u-custom-item u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-container-layout-2">
+                <h3 class="u-text u-text-default u-text-2">Database</h3>
+                <img class="u-image u-image-circle u-preserve-proportions u-image-4" id="9-img"  src="static/images/ok.png" alt="" data-image-width="48" data-image-height="48">
+                <input type="button" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-6 u-btn-3" id="9" value="Check" onclick="check_service(this.id)"/>
+              </div>
+            </div>
+            <div class="u-border-2 u-border-grey-75 u-container-style u-custom-item u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-container-layout-2">
+                <h3 class="u-text u-text-default u-text-2">Tag Predictor</h3>
+                <img class="u-image u-image-circle u-preserve-proportions u-image-4" id="10-img"  src="static/images/ok.png" alt="" data-image-width="48" data-image-height="48">
+                <input type="button" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-6 u-btn-3" id="10" value="Check" onclick="check_service(this.id)"/>
+              </div>
+            </div>
+            <div class="u-border-2 u-border-grey-75 u-container-style u-custom-item u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-container-layout-2">
+                <h3 class="u-text u-text-default u-text-2">Webpage</h3>
+                <img class="u-image u-image-circle u-preserve-proportions u-image-4" id="11-img"  src="static/images/ok.png" alt="" data-image-width="48" data-image-height="48">
+                <input type="button" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-6 u-btn-3" id="11" value="Check" onclick="check_service(this.id)"/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

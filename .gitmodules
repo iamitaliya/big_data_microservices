@@ -1,0 +1,9 @@
+[submodule "visualiser"]
+	path = visualiser
+	url = https://github.com/iamitaliya/visualization-microservice.git
+[submodule "recommender"]
+	path = recommender
+	url = https://github.com/iamitaliya/Recommender-Microservice.git
+[submodule "tags_predictor"]
+	path = tags_predictor
+	url = https://github.com/priyankabyahatti/movie-tags-predictor.git
