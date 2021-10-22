@@ -1,0 +1,158 @@
+version: "3"
+
+services:
+# visualiser microservice
+  database: #visualiser_database:
+    image: "postgres"
+    env_file:
+      - visualiser/database.env
+    volumes:
+      - database-data:/var/lib/postgresql/data/
+    networks:
+      - common
+    ports:
+      - "5432:5432"
+
+  vis_collector: #visualiser_collector:
+    build: ./visualiser/collector
+    depends_on:
+      - database #visualiser_database
+    networks:
+      - common
+    ports:
+      - "4321:4321"
+  
+  visualiser: #visualiser_webpage:
+    build: ./visualiser/visualiser
+    depends_on:
+      - vis_collector
+    command:
+      [
+        "./wait-for-it.sh",
+        "collector:4321", #visualiser_collector:4321,
+        "-t",
+        "10",
+        "--",
+        "node",
+        "server.js",
+      ]
+    networks:
+      - common
+    ports:
+      - "8080:8080"
+
+# recommender microservice
+  movie_database:
+    image: "postgres"
+    env_file:
+      - recommender/database.env # configure postgres
+    volumes:
+      - database-data:/var/lib/postgresql/mdata/ # persist data even if container shuts down
+    networks:
+      - common
+    ports:
+      - "2311:5432"
+
+  collector:
+    build: ./recommender/collector
+    command: tail -F anything
+    depends_on:
+      - movie_database
+    networks:
+      - common
+    ports:
+      - "2111:2111"
+
+  recommender:
+    build: ./recommender/recommender
+    depends_on:
+      - movie_database
+    networks:
+      - common
+    ports:
+      - "2211:2211"
+
+  result:
+    build: ./recommender/result
+    depends_on:
+      - collector
+    networks:
+      - common
+    ports:
+      - "2411:2411"
+    command:
+      [
+        "./wait-for-it.sh",
+        "collector:2111",
+        "-t",
+        "10",
+        "--",
+        "node",
+        "server.js",
+      ]
+
+# tags predictor microservice
+  tags_database:
+    image: "postgres"
+    env_file: 
+      - tags_predictor/database.env
+    volumes: 
+      - "database-data:/var/lib/postgresql/mdata/"
+    networks: 
+      - common
+    ports:
+      - "3411:5432"
+       
+  preprocessor:
+    build: ./tags_predictor/preprocessor
+    depends_on: 
+      - tags_database
+    networks: 
+      - common
+    ports: 
+      - "3111:3111"
+      
+  prediction:
+    build: ./tags_predictor/prediction
+    depends_on: 
+      - tags_database
+    networks: 
+      - common
+    ports:
+      - "3211:3211"
+  
+  webpage:
+    build: ./tags_predictor/webpage
+    depends_on:
+      - tags_database
+      - preprocessor
+      - prediction
+    command:
+      [
+          "./wait-for-it.sh",
+          "preprocessor:3111",
+          "-t",
+          "0",
+          "--",
+          "python",
+          "main.py",
+      ]
+    networks:
+      - common
+    ports:
+      - "3311:3311"
+
+# dashboard
+  dashboard:
+    build: ./dashboard
+    networks:
+      - common
+    ports:
+      - "5555:5555"
+
+volumes:
+  database-data: # named volumes can be managed easier using docker-compose
+
+networks:
+  common:
+    driver: bridge
