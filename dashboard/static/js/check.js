@@ -87,4 +87,10 @@ function onload_check(){
     services.forEach(function(item, i){
         check_service(item)
     })
+    // it will check status every 5 minutes
+    var interval = window.setInterval(function(){
+        services.forEach(function(item, i){
+            check_service(item)
+        })
+    }, 300000);
 }
