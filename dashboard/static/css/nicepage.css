@@ -34617,7 +34617,8 @@ a.u-link.u-text-hover-grey-90:hover {
 
 /*end-variables sitestylecss*/
 .u-header {
-  background-image: none;
+  font-weight: bold;
+  background-color: #4CAF50;
 }
 
 .u-header .u-sheet-1 {
