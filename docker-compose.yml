@@ -12,7 +12,7 @@ services:
     networks:
       - common
     ports:
-      - "5432:5432"
+      - "1211:5432"
       
   vis_collector: #visualiser_collector:
     build: ./visualiser/collector
@@ -22,7 +22,7 @@ services:
     networks:
       - common
     ports:
-      - "4321:4321"
+      - "1111:1111"
   
   visualiser: #visualiser_webpage:
     build: ./visualiser/visualiser
@@ -32,7 +32,7 @@ services:
     command:
       [
         "./wait-for-it.sh",
-        "collector:4321", #visualiser_collector:4321,
+        "vis_collector:1111",
         "-t",
         "10",
         "--",
@@ -42,7 +42,7 @@ services:
     networks:
       - common
     ports:
-      - "8080:8080"
+      - "1311:1311"
 
 # recommender microservice
   movie_database:
@@ -104,7 +104,7 @@ services:
     env_file: 
       - tags_predictor/database.env
     volumes: 
-      - "database-data:/var/lib/postgresql/mdata/"
+      - "database-data:/var/lib/postgresql/tdata/"
     networks: 
       - common
     ports:
@@ -133,6 +133,7 @@ services:
   webpage:
     build: ./tags_predictor/webpage
     container_name: tags_predictor_webpage
+    restart: always
     depends_on:
       - tags_database
       - preprocessor
